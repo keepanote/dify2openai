@@ -1,14 +1,17 @@
 version: '3.5'
 services:
   dify2openai:
-    container_name: dify2openai
+    container_name: ${CONTAINER_NAME:-dify2openai}
     build:
       context: .
       dockerfile: Dockerfile
     network_mode: bridge
     ports:
-      - "3000:3000"
+      - "${PORT:-3000}:3000"
     restart: always
     environment: 
-      - DIFY_API_URL=https://api.dify.ai/v1
-      - BOT_TYPE=Chat
+      - DIFY_API_URL=${DIFY_API_URL:-https://api.dify.ai/v1}
+      - BOT_TYPE=${BOT_TYPE:-Chat}
+      - INPUT_VARIABLE=${INPUT_VARIABLE:-}
+      - OUTPUT_VARIABLE=${OUTPUT_VARIABLE:-}
+      - MODELS_NAME=${MODELS_NAME:-dify}
